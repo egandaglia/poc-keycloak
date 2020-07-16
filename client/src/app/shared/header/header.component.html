@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    
+    <ul class="navbar-nav align-items-start">
+      <li class="nav-item">
+        <a class="navbar-brand" href="#">
+          Poc-Keycloak
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/" class="nav-link">
+        Home
+        </a>
+      </li>
+      <li class="nav-item" style="align-self: center;">
+        <button type="button" class="btn btn-outline-info btn-sm" routerLink="/article/create">Create Article</button>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav align-items-end" *ngIf="isLoggedIn; else notLoggedIn">
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" 
+        data-toggle="dropdown" 
+        aria-haspopup="true" aria-expanded="false">
+          {{ serialCode }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a href="#" class="dropdown-item" (click)="onLogout()">Log out</a>
+        </div>
+      </li>
+    </ul>
+    <ng-template #notLoggedIn>
+      <ul class="navbar-nav align-items-end">
+        <li class="nav-item">
+          <a routerLink="/login" class="nav-link">
+          Sign in
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/register" class="nav-link">
+          Sign up
+          </a>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+</nav>

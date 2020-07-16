@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3 mt-4">
+      <h3>Login</h3>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <div class="form-group">
+            <label for="loginSerialCode">Serial Code</label>
+            <input type="text" 
+              class="form-control" id="loginSerialCode" 
+              name="serialCode" ngModel required #serialCode="ngModel"
+              placeholder="Emter serial code">
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" 
+              class="form-control" id="loginPassword" 
+              name="password" ngModel required #password="ngModel"
+              placeholder="Password">
+          </div>
+          <div class="form-group form-check">
+            <a [routerLink]="['/reset-password']">Forgot Password</a>
+          </div>
+          <button type="submit" [disabled]="f.invalid" class="btn btn-primary">Login <i class="fas fa-sign-in-alt"></i></button>
+        </form>
+  </div>
+</div>
