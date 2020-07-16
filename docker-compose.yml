@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  pgAdmin:
+    restart: always
+    image: dpage/pgadmin4
+    container_name: "pgadmin4"
+    ports:
+      - "8089:80"
+    networks:
+      - pgdbnet
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@domain.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+  postgres:
+    restart: always
+    image: postgres:alpine
+    container_name: "postgres"
+    ports:
+      - "5432:5432"
+    networks:
+      - pgdbnet
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: "keycloak"
+    environment:
+      DB_VENDOR: h2
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    ports:
+      - 8080:8080
+    volumes:
+      - ./keycloak:/tmp
+    networks:
+      - pgdbnet
+networks:
+  pgdbnet:
+    driver: bridge
